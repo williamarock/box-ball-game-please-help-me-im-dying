@@ -9,9 +9,9 @@ let Burtha = sprites.create(assets.image`Burtha`, SpriteKind.Player)
 Burtha.setPosition(83, 125)
 // Allows the player to input only left and right inputs
 controller.moveSprite(Burtha, 100, 0)
+info.setLife(3)
 // Doesn't allow the player sprite to go outside of the walls
 Burtha.setStayInScreen(true)
-info.setLife(3)
 // Creates a sprite for the ball, and sets it as a kind projectile
 Ball = sprites.createProjectileFromSprite(img`
     . . . . . . . . . . . . . . . . 
@@ -33,10 +33,3 @@ Ball = sprites.createProjectileFromSprite(img`
     `, Burtha, 50, 50)
 // Makes it so that the ball bounces on the wall when it touches them
 Ball.setBounceOnWall(true)
-let Death_Line = sprites.create(img`
-    7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
-    `, SpriteKind.Enemy)
-Death_Line.setPosition(72, 50)
-if (Ball.overlapsWith(Death_Line)) {
-    info.changeLifeBy(-1)
-}
