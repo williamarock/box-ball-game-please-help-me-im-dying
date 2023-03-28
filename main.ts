@@ -31,11 +31,11 @@ Ball = sprites.createProjectileFromSprite(img`
     . . . . . . c c c c . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, Burtha, 50, 50)
-Ball.setPosition(70, 60)
+Ball.setPosition(70, 90)
 // Makes it so that the ball bounces on the wall when it touches them
 Ball.setBounceOnWall(true)
 forever(function () {
-    if (Ball.x > 120) {
+    if (Ball.bottom > 119) {
         game.gameOver(false)
     }
 })
