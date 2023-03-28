@@ -9,7 +9,6 @@ let Burtha = sprites.create(assets.image`Burtha`, SpriteKind.Player)
 Burtha.setPosition(83, 125)
 // Allows the player to input only left and right inputs
 controller.moveSprite(Burtha, 100, 0)
-info.setLife(3)
 // Doesn't allow the player sprite to go outside of the walls
 Burtha.setStayInScreen(true)
 // Creates a sprite for the ball, and sets it as a kind projectile
@@ -35,6 +34,7 @@ Ball.setPosition(70, 90)
 // Makes it so that the ball bounces on the wall when it touches them
 Ball.setBounceOnWall(true)
 forever(function () {
+    // if ball goes under x119 of the bottom wall, then game over lose happens
     if (Ball.bottom > 119) {
         game.gameOver(false)
     }
