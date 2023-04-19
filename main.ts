@@ -73,17 +73,21 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
             Block.setPosition(x, index2 * 18 + 20)
         }
     }
-    return info.score() + 1
 }
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.block, function (sprite, otherSprite) {
     findPosition(Ball2, Block)
-    info.changeScoreBy(1)
     if (direction == 1) {
         Ball2.setVelocity(Ball2.vx, -1 * Ball2.vy)
     } else {
         Ball2.setVelocity(-1 * Ball2.vx, Ball2.vy)
     }
     sprites.destroy(otherSprite)
+    if (Math.percentChance(50)) {
+        list = [info.score() + 1, info.score() - 1, info.score() + 2]
+        info.setScore(list[randint(0, 2)])
+    } else {
+        info.changeScoreBy(1)
+    }
 })
 function findPosition (ball: Sprite, block: Sprite) {
     if (ball.x < block.x - 8 || ball.x > block.x + 8) {
