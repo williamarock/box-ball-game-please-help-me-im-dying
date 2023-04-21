@@ -5,14 +5,23 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, ot
     Ball2.setVelocity(Ball2.vx, -1 * Ball2.vy)
 })
 function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) {
+    // repeats for 10 times, allowing the blocks to spawn 10 times
     for (let index = 0; index <= 9; index++) {
+        // repeats 3 times for each times index is repeating itself
         for (let index2 = 0; index2 <= 2; index2++) {
+            // sets the variable x to index x 18
             x = index * 18
+            // If index 2 / 2 = 1, then
             if (index2 % 2 == 1) {
+                // set variable x to index times 18 + 8
                 x = index * 18 + 8
             }
+            // sets blockpick to pick a random number between 0 - 2
             blockpick = randint(0, 2)
+            // if blockpick variable is equal to 0, then... If blockpick is equal to 1, then...
+            // else, then...
             if (blockpick == 0) {
+                // block becomes red sprite
                 Block = sprites.create(img`
                     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
                     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
@@ -32,6 +41,7 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
                     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
                     `, SpriteKind.block)
             } else if (blockpick == 1) {
+                // block becomes yellow sprite
                 Block = sprites.create(img`
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
@@ -51,6 +61,7 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
                     `, SpriteKind.block)
             } else {
+                // block becomes pink sprite
                 Block = sprites.create(img`
                     3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
                     3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
@@ -70,29 +81,45 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
                     3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
                     `, SpriteKind.block)
             }
+            // sets block position to x of variable x and y index time 18 + 20
             Block.setPosition(x, index2 * 18 + 20)
         }
     }
 }
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.block, function (sprite, otherSprite) {
+    // calls function findPosition
     findPosition(Ball2, Block)
+    // if direction variable = 1, then...
+    // else then...
     if (direction == 1) {
+        // sets ball velocity to vx (velocity x) and vy to -1 times ball (velocity y) 
         Ball2.setVelocity(Ball2.vx, -1 * Ball2.vy)
     } else {
+        // sets ball to vx -1 times ball (velocity x) and vy ball (velocity y)
         Ball2.setVelocity(-1 * Ball2.vx, Ball2.vy)
     }
+    // destroys othersprite
     sprites.destroy(otherSprite)
+    // if 50% is true, then...
+    // else then...
     if (Math.percentChance(50)) {
+        // creates list of array score +1, score - 1, score + 2
         list = [info.score() + 1, info.score() - 1, info.score() + 2]
+        // sets score to random value between 0 and 2 from list.
         info.setScore(list[randint(0, 2)])
     } else {
+        // change score by 1
         info.changeScoreBy(1)
     }
 })
 function findPosition (ball: Sprite, block: Sprite) {
+    // if ball x position is less than block x position - 8 or ball x position is bigger than block x position + 8 then...
+    // else then...
     if (ball.x < block.x - 8 || ball.x > block.x + 8) {
+        // set direction variable to 1
         direction = 1
     } else {
+        // set direction variable to 0
         direction = 0
     }
 }
