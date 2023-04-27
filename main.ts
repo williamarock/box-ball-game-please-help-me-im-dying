@@ -2,26 +2,21 @@ namespace SpriteKind {
     export const block = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
-    Ball2.setVelocity(Ball2.vx, -1 * Ball2.vy)
+    timer.throttle("action", 500, function () {
+        Ball2.setVelocity(Ball2.vx, -1 * Ball2.vy)
+    })
 })
 function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) {
-    // repeats for 10 times, allowing the blocks to spawn 10 times
-    for (let index = 0; index <= 9; index++) {
-        // repeats 3 times for each times index is repeating itself
-        for (let index2 = 0; index2 <= 2; index2++) {
-            // sets the variable x to index x 18
-            x = index * 18
-            // If index 2 / 2 = 1, then
-            if (index2 % 2 == 1) {
-                // set variable x to index times 18 + 8
-                x = index * 18 + 8
-            }
-            // sets blockpick to pick a random number between 0 - 2
-            blockpick = randint(0, 2)
-            // if blockpick variable is equal to 0, then... If blockpick is equal to 1, then...
-            // else, then...
-            if (blockpick == 0) {
-                // block becomes red sprite
+    for (let v_index = 0; v_index <= 9; v_index++) {
+        // loops for a total of 4 times everytime that the loop of v_index is looped once
+        for (let h_index = 0; h_index <= 3; h_index++) {
+            // sets the variable x to v_index x 17
+            x = v_index * 17
+            // sets color_selection to pick a random number between 0 and 2
+            color_selection = randint(0, 3)
+            // this asks the program whether variable color_selection is equal to either 0, 1 or 2, and if it is equal to 0, then it will pick a red block. if it is equal to 1, it will pick and yellow block, if its equal to 2 then it will pick an orange block and if it is not equal to either 0, 1 or 2, then it will be picking a pink block.
+            if (color_selection == 0) {
+                // sets a red block sprite to the block variable
                 Block = sprites.create(img`
                     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
                     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
@@ -40,8 +35,8 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
                     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
                     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
                     `, SpriteKind.block)
-            } else if (blockpick == 1) {
-                // block becomes yellow sprite
+            } else if (color_selection == 1) {
+                // sets a yellow block sprite to the block variable
                 Block = sprites.create(img`
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
@@ -59,9 +54,29 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
                     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+                    `, SpriteKind.block)
+            } else if (color_selection == 2) {
+                // sets a orange block sprite to the block variable
+                Block = sprites.create(img`
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+                    4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
                     `, SpriteKind.block)
             } else {
-                // block becomes pink sprite
+                // sets a pink block sprite to the block variable
                 Block = sprites.create(img`
                     3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
                     3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
@@ -81,26 +96,25 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
                     3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
                     `, SpriteKind.block)
             }
-            // sets block position to x of variable x and y index time 18 + 20
-            Block.setPosition(x, index2 * 18 + 20)
+            // will set block sprite to a position x of x variable and y of h_index times 17 + 8
+            Block.setPosition(x, h_index * 17 + 8)
         }
     }
 }
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.block, function (sprite, otherSprite) {
     // calls function findPosition
     findPosition(Ball2, Block)
-    // if direction variable = 1, then...
-    // else then...
+    // if direction is equal to one, then the ball will bounce downward from the block x position, else it will bounce upwards from the block x position
     if (direction == 1) {
-        // sets ball velocity to vx (velocity x) and vy to -1 times ball (velocity y) 
+        // sets ball velocity to its vx and vy times -1, making it bounce at all time away from where it hit the block
         Ball2.setVelocity(Ball2.vx, -1 * Ball2.vy)
     } else {
-        // sets ball to vx -1 times ball (velocity x) and vy ball (velocity y)
+        // sets the ball velocity to vx times -1 and vy to ball vy.
         Ball2.setVelocity(-1 * Ball2.vx, Ball2.vy)
     }
     // destroys othersprite
     sprites.destroy(otherSprite)
-    // if 50% is true, then...
+    // if 50% is true, then a random variable from the list will be chosen and will change the score by that amount, else the score is changed by 1
     // else then...
     if (Math.percentChance(50)) {
         // creates list of array score +1, score - 1, score + 2
@@ -113,9 +127,8 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.block, function (sprite, oth
     }
 })
 function findPosition (ball: Sprite, block: Sprite) {
-    // if ball x position is less than block x position - 8 or ball x position is bigger than block x position + 8 then...
-    // else then...
-    if (ball.x < block.x - 8 || ball.x > block.x + 8) {
+    // if the x position of ball is smaller than the x position of block, then direction is set to 1, else it is set to 0
+    if (ball.x < block.x) {
         // set direction variable to 1
         direction = 1
     } else {
@@ -125,7 +138,7 @@ function findPosition (ball: Sprite, block: Sprite) {
 }
 let direction = 0
 let Block: Sprite = null
-let blockpick = 0
+let color_selection = 0
 let x = 0
 let list: number[] = []
 let Ball2: Sprite = null
@@ -169,8 +182,8 @@ forever(function () {
     if (Ball2.bottom > 119) {
         game.gameOver(false)
     }
-    // if score is equal to 20, then game over win happens
-    if (info.score() == 20) {
+    // if score is equal to 25, then game over win happens
+    if (info.score() >= 25) {
         game.gameOver(true)
     }
 })
