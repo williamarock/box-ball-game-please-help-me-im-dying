@@ -1,12 +1,17 @@
 namespace SpriteKind {
     export const block = SpriteKind.create()
 }
+// This code has been written by williamarock
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
+    // This is a timer that will disable this portion of the code for 500 ms every time the ball overlaps
     timer.throttle("action", 500, function () {
+        // it will set the vx to the ball vx and the vy to ball vy times -1
         Ball2.setVelocity(Ball2.vx, -1 * Ball2.vy)
     })
 })
+// This function has been coded by wilkiamarock
 function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) {
+    // will repeat everything inside it from number 0 to number 9
     for (let v_index = 0; v_index <= 9; v_index++) {
         // loops for a total of 4 times everytime that the loop of v_index is looped once
         for (let h_index = 0; h_index <= 3; h_index++) {
@@ -101,6 +106,7 @@ function spawnBlocks (num: number, block1: any[], block2: any[], block3: any[]) 
         }
     }
 }
+// This code (except for the if statement) has been written by williamarock
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.block, function (sprite, otherSprite) {
     // calls function findPosition
     findPosition(Ball2, Block)
@@ -116,6 +122,9 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.block, function (sprite, oth
     sprites.destroy(otherSprite)
     // if 50% is true, then a random variable from the list will be chosen and will change the score by that amount, else the score is changed by 1
     // else then...
+    // 
+    // 
+    // This statement has been written by 80CaliberSpringroll
     if (Math.percentChance(50)) {
         // creates list of array score +1, score - 1, score + 2
         list = [info.score() + 1, info.score() - 1, info.score() + 2]
@@ -126,6 +135,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.block, function (sprite, oth
         info.changeScoreBy(1)
     }
 })
+// This function has been written by 80CaliberSpringroll
 function findPosition (ball: Sprite, block: Sprite) {
     // if the x position of ball is smaller than the x position of block, then direction is set to 1, else it is set to 0
     if (ball.x < block.x) {
@@ -136,6 +146,7 @@ function findPosition (ball: Sprite, block: Sprite) {
         direction = 0
     }
 }
+// This section has been written by 80CaliberSpringroll
 let direction = 0
 let Block: Sprite = null
 let color_selection = 0
@@ -177,6 +188,7 @@ Ball2.setBounceOnWall(true)
 info.setScore(0)
 // calls the function spawnBlocks, which will spawn blocks for the game.
 spawnBlocks(1, list, list, list)
+// This code has been written by williamisarock
 forever(function () {
     // if ball goes under x119 of the bottom wall, then game over lose happens
     if (Ball2.bottom > 119) {
